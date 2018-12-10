@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="120">
+
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+    </Properties>
+
+    <Appenders>
+
+        <RollingFile name="fileAppender" fileName="logs/job-chriniko-assignment.log"
+                     filePattern="logs/job-chriniko-assignment-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+
+            <DefaultRolloverStrategy max="10"/>
+
+        </RollingFile>
+
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout
+                    pattern="${LOG_PATTERN}"/>
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.chriniko.job.assignment" level="TRACE" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="fileAppender"/>
+        </Logger>
+
+        <Root level="ERROR">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="fileAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
